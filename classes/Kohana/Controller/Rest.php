@@ -363,7 +363,10 @@ abstract class Kohana_Controller_Rest extends Controller {
 				{
 					$parsed_body = json_decode($this->request->body(), true);
 				}
-				else
+				else if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data'))
+				{
+					$parsed_body = json_decode($this->request->body(), true);
+				} else
 				{
 					parse_str($this->request->body(), $parsed_body);
 				}
