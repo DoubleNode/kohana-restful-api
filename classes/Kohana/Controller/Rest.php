@@ -353,7 +353,7 @@ abstract class Kohana_Controller_Rest extends Controller {
 	private function _init_params()
 	{
 		$this->_params = array();
-		
+
 		switch ($this->request->method())
 		{
 			case HTTP_Request::POST:
@@ -361,13 +361,11 @@ abstract class Kohana_Controller_Rest extends Controller {
 			case HTTP_Request::DELETE:
 				if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'application/json'))
 				{
-					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
+					$parsed_body = json_decode($this->request->body(), true);
 				}
 				else if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data'))
 				{
-					echo $this->request->body();
-					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
-					die();
+					$parsed_body = json_decode($this->request->body(), true);
 				} else
 				{
 					parse_str($this->request->body(), $parsed_body);
