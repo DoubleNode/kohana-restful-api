@@ -361,11 +361,11 @@ abstract class Kohana_Controller_Rest extends Controller {
 			case HTTP_Request::DELETE:
 				if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'application/json'))
 				{
-					$parsed_body = json_decode(urldecode($this->request->body()), true);
+					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
 				}
 				else if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data'))
 				{
-					$parsed_body = json_decode(urldecode($this->request->body()), true);
+					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
 				} else
 				{
 					parse_str($this->request->body(), $parsed_body);
