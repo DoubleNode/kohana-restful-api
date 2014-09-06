@@ -353,7 +353,10 @@ abstract class Kohana_Controller_Rest extends Controller {
 	private function _init_params()
 	{
 		$this->_params = array();
-print_a($_SERVER);
+		
+echo '<pre>';
+print_r($_SERVER);
+echo '</pre>';
 		switch ($this->request->method())
 		{
 			case HTTP_Request::POST:
