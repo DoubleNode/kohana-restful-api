@@ -353,7 +353,7 @@ abstract class Kohana_Controller_Rest extends Controller {
 	private function _init_params()
 	{
 		$this->_params = array();
-
+print_a($_SERVER);
 		switch ($this->request->method())
 		{
 			case HTTP_Request::POST:
@@ -362,13 +362,16 @@ abstract class Kohana_Controller_Rest extends Controller {
 				if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'application/json'))
 				{
 					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
+					die('application/json');
 				}
 				else if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data'))
 				{
 					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
+					die('multipart/form-data');
 				} else
 				{
 					parse_str($this->request->body(), $parsed_body);
+					die('default');
 				}
 				$this->_params = array_merge((array) $parsed_body, (array) $this->request->post());
 
