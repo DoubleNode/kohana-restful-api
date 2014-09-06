@@ -354,9 +354,6 @@ abstract class Kohana_Controller_Rest extends Controller {
 	{
 		$this->_params = array();
 		
-echo '<pre>';
-print_r($_SERVER);
-echo '</pre>';
 		switch ($this->request->method())
 		{
 			case HTTP_Request::POST:
@@ -365,16 +362,15 @@ echo '</pre>';
 				if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'application/json'))
 				{
 					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
-					die('application/json');
 				}
 				else if (isset($_SERVER['CONTENT_TYPE']) && false !== strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data'))
 				{
+					echo $this->request->body();
 					$parsed_body = json_decode(urldecode(html_entity_decode($this->request->body())), true);
-					die('multipart/form-data');
+					die();
 				} else
 				{
 					parse_str($this->request->body(), $parsed_body);
-					die('default');
 				}
 				$this->_params = array_merge((array) $parsed_body, (array) $this->request->post());
 
